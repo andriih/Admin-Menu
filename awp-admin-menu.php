@@ -25,8 +25,19 @@ function awp_option_page ()
 {
 	$options = '';
 	if(isset($_POST['awp_hidden']) && $_POST['awp_hidden']=='awp_hidden'){
-		print_r($_POST);
+		update_option( 'awp_theme_options', array(
+			'awp_theme_options' => $_POST['awp_theme_options']['awp_theme_options_body'],
+			'awp_theme_options' => $_POST['awp_theme_options']['awp_theme_options_header']
+		));
+
+		echo '<div class="updated"><p><strong></strong>Настройки збережені</p></div>';
 	}	
+	$option = get_option('awp_theme_option' );
+	echo '<pre>';
+		var_dump($options);
+	echo '</pre>';
+
+	
 
 	?>
 		<div class="wrap">
