@@ -24,7 +24,7 @@ function awp_admin_menu()
 function awp_option_page ()
 {
 	$options = '';
-	if(isset($_POST['awp_hidden']) && $_POST['awp_hidden']=='awp_hidden'){
+	if(isset($_POST) && check_admin_referer('awp_theme_options' )){
 		update_option( 'awp_theme_options', array(
 			'awp_theme_options' => $_POST['awp_theme_options']['awp_theme_options_body'],
 			'awp_theme_options' => $_POST['awp_theme_options']['awp_theme_options_header']
@@ -32,9 +32,9 @@ function awp_option_page ()
 
 		echo '<div class="updated"><p><strong></strong>Настройки збережені</p></div>';
 	}	
-	$option = get_option('awp_theme_option' );
+	$options = get_option('awp_theme_options' );
 	echo '<pre>';
-		var_dump($options);
+		print_r($options);
 	echo '</pre>';
 
 	
@@ -44,7 +44,8 @@ function awp_option_page ()
 			<h2>Опції  теми:</h2>
 			<p>Настройки теми плагина Options &amp; Settings API</p>
 			<form action="" method="POST">
-				<input type="hidden" name="awp_hidden" value="awp_hidden">
+				<?php wp_nonce_field('awp_theme_options' ); ?>
+				
 				<p>
 					<label for="">Колір фону</label>
 					<input type ="text"
